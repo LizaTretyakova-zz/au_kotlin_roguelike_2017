@@ -1,0 +1,7 @@
+MyExamApp/gradlew*
+MyExamApp/gradle.*
+MyExamApp/gradle/*
+MyExamApp/settings.gradle
+MyExamApp/.idea/*
+*~
+
