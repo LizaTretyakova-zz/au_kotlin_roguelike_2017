@@ -11,10 +11,10 @@
 
     <com.prokkypew.asciipanelview.AsciiPanelView
             android:id="@+id/panelView"
-            android:layout_width="320dp"
-            android:layout_height="320dp"
-            app:panelWidth="18"
-            app:panelHeight="18"
+            android:layout_width="576dp"
+            android:layout_height="312dp"
+            app:panelWidth="48"
+            app:panelHeight="26"
             app:defaultCharColor="#ffffff"
             app:defaultBackgroundColor="#000000"
             app:fontFamily="fonts/OpenSans-Regular.ttf"
