@@ -7,8 +7,9 @@ class StartScreen(panelView: AsciiPanelView) : Screen(panelView) {
 
     override fun displayOutput() {
         panel.clear()
-        panel.writeString("Probably a roguelike", 1, 1, null, null)
-        panel.writeCenter("-- follow [the white character] to start --", 22, Color.WHITE)
+        panel.writeString("Somewhat a", 1, 1, Color.MAGENTA, null)
+        panel.writeString("roguelike", 1, 2, Color.MAGENTA, null)
+        panel.writeCenter("-- [start] --", 10, Color.WHITE)
     }
 
     override fun respondToUserInput(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar): Screen {

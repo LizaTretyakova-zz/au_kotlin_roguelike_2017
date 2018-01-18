@@ -7,8 +7,8 @@ import com.prokkypew.asciipanelview.AsciiPanelView
 class LoseScreen(panelView: AsciiPanelView) : Screen(panelView) {
 
     override fun displayOutput() {
-        panel.writeString("You lost.", 1, 1, null, null)
-        panel.writeCenter("-- follow [the white character] to restart --", 22, Color.WHITE)
+        panel.writeString("You lost.", 1, 1, Color.MAGENTA, null)
+        panel.writeCenter("-- [restart] --", 10, Color.WHITE)
     }
 
     override fun respondToUserInput(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar): Screen {
