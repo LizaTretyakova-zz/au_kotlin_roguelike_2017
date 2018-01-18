@@ -7,6 +7,7 @@ import com.prokkypew.asciipanelview.AsciiPanelView
 class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
 
     override fun displayOutput() {
+        panel.clear()
         panel.writeString("So fun.", 1, 1, Color.MAGENTA, null)
         panel.writeCenter("-- [lose] --", 10, Color.RED, null)
         panel.writeCenter("-- [win] --", 11, Color.GREEN, null)

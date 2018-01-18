@@ -10,6 +10,7 @@ import com.prokkypew.asciipanelview.AsciiPanelView
 class WinScreen(panelView: AsciiPanelView) : Screen(panelView) {
 
     override fun displayOutput() {
+        panel.clear()
         panel.writeString("You won.", 1, 1, Color.MAGENTA, null)
         panel.writeCenter("-- [restart] --", 10, Color.WHITE)
     }
