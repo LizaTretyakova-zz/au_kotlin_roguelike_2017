@@ -44,16 +44,7 @@ class World(private val tiles: Array<Array<Tile>>) {
     }
 
     fun creature(x: Int, y: Int): Creature? {
-        Log.e("World", "x=" + x.toString() + " y=" + y.toString())
-        for (c in creatures) {
-            Log.e("World", "creature at x=" + c.x.toString() + " y=" + c.y.toString())
-            if (c.x == x && c.y == y) {
-                return c
-            }
-        }
-        return null
-//        return creatures.find { it.x == x && it.y == y }
-//        return creatures.firstOrNull { it.x == x && it.y == y }
+        return creatures.find { it.x == x && it.y == y }
     }
 
     private fun findPlace(): Pair<Int, Int> {
@@ -80,6 +71,8 @@ class World(private val tiles: Array<Array<Tile>>) {
         val place = findPlace()
         tiles[place.first][place.second] = Tile.MIDI_CHLORIAN
     }
+
+    fun update() = creatures.map { it.update() }
 
     fun remove(creature: Creature) = creatures.remove(creature)
 }

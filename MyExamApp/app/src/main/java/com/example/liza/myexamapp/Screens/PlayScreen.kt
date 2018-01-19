@@ -1,5 +1,6 @@
 package com.example.liza.myexamapp.Screens
 
+import android.graphics.Color
 import com.prokkypew.asciipanelview.AsciiPanelView
 import com.example.liza.myexamapp.World.World
 import com.example.liza.myexamapp.World.WorldBuilder
@@ -43,6 +44,12 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
                 .map { panel.writeChar(it.char.char.char, it.x!! - left, it.y!! - top, it.char.char.charColor) }
     }
 
+    private fun displayStats() {
+        val statsString = " Force: " + player.force.toString() + " power: " + player.power.toString()
+        panel.clearRect(0.toChar(), 0, SCREEN_HEIGHT, SCREEN_WIDTH, 1)
+        panel.writeString(statsString, 0, SCREEN_HEIGHT, Color.YELLOW)
+    }
+
     private fun createLifeForms(creatureFactory: CreatureFactory) {
         for (i in 0..7) {
             // one healing midi-chlorian per trooper
@@ -66,6 +73,7 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
         val top = getScrollY()
 
         displayTiles(left, top)
+        displayStats()
         if(player.x!! >= left && player.x!! < left + SCREEN_WIDTH && player.y!! >= top && player.y!! < top + SCREEN_HEIGHT) {
             panel.writeChar(player.char.char.char, player.x!! - left, player.y!! - top, player.char.char.charColor);
         }
@@ -83,6 +91,13 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
             left -> player.moveBy(-1, 0)
             up -> player.moveBy(0, 1)
             down -> player.moveBy(0, -1)
+        }
+
+        world.update()
+
+        when {
+            player.isDead() -> return LoseScreen(panel)
+            player.isWinner() -> return WinScreen(panel)
         }
 
         displayOutput()

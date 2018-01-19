@@ -7,15 +7,15 @@ import com.example.liza.myexamapp.World.Tile
 class Creature(
         val world: World,
         internal val char: Tile,
-        val power: Int,
-        var force: Int) {
+        var force: Int,
+        val power: Int) {
 
     companion object {
-        val CRYSTALS_NUMBER = 4
-        val JEDI_FORCE = 10
-        val JEDI_POWER = 10
-        val TROOPER_FORCE = 0
-        val TROOPER_POWER = 1
+        const val CRYSTALS_NUMBER = 4
+        const val JEDI_FORCE = 10
+        const val JEDI_POWER = 10
+        const val TROOPER_FORCE = 0
+        const val TROOPER_POWER = 1
     }
 
     var ai: CreatureAI? = null
@@ -47,14 +47,16 @@ class Creature(
 
     fun modifyForce(delta: Int) {
         force += delta
+        Log.e("Creature", "Force modified to " + force.toString() + " d=" + delta.toString())
         if (isDead()) {
             die()
         }
     }
 
     fun moveBy(mx: Int, my: Int) {
+        if(world.tile(x!! + mx, y!! + my) == Tile.BOUNDS) return
+
         val inhabitant = world.creature(x!! + mx, y!! + my)
-        Log.e("[CreatureAI::moveBy]", inhabitant.toString())
         when(inhabitant) {
             null -> ai!!.onEnter(x!! + mx, y!! + my, world.tile(x!! + mx, y!! + my))
             else -> attack(inhabitant)

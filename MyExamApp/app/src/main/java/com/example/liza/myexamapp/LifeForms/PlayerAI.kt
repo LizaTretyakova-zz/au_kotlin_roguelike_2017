@@ -6,6 +6,7 @@ import com.example.liza.myexamapp.World.Tile
 class PlayerAI(creature: Creature) : CreatureAI(creature) {
 
     override fun onAttack(enemy: Creature) {
+        Log.e("Player", "Enemy power " + enemy.power.toString())
         this.creature.modifyForce(-enemy.power)
         enemy.die()
         this.creature.x = enemy.x

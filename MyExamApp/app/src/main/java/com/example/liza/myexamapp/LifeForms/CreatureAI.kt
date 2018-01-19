@@ -1,6 +1,5 @@
 package com.example.liza.myexamapp.LifeForms
 
-import android.util.Log
 import com.example.liza.myexamapp.World.Tile
 
 open class CreatureAI(protected var creature: Creature) {
@@ -10,7 +9,9 @@ open class CreatureAI(protected var creature: Creature) {
     }
 
     open fun onEnter(x: Int, y: Int, tile: Tile) {
-        if (tile.isGround()) {
+        if(tile == Tile.BOUNDS) return
+
+        if (tile.isWalkable()) {
             creature.x = x
             creature.y = y
             if (tile.isInteractive()) {

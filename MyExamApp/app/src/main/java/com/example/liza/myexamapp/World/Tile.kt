@@ -12,6 +12,7 @@ enum class Tile(var char: AsciiPanelView.ColoredChar, val force: Int, val sharpn
     TROOPER(AsciiPanelView.ColoredChar('T', Color.WHITE, AsciiPanelView.DEFAULT_BG_COLOR), 0, 0);
 
     fun isDiggable(): Boolean = this == WALL
+    fun isWalkable(): Boolean = this == FLOOR || this == MIDI_CHLORIAN
     fun isGround(): Boolean = this == FLOOR
     fun isInteractive(): Boolean = this == MIDI_CHLORIAN
 }
