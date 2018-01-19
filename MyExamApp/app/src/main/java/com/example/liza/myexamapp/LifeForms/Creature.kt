@@ -1,5 +1,6 @@
 package com.example.liza.myexamapp.LifeForms
 
+import android.util.Log
 import com.example.liza.myexamapp.World.World
 import com.example.liza.myexamapp.World.Tile
 
@@ -63,7 +64,8 @@ class Creature(
     }
 
     fun moveBy(mx: Int, my: Int) {
-        val inhabitant = world.creature(mx, my)
+        val inhabitant = world.creature(x!! + mx, y!! + my)
+        Log.e("[CreatureAI::moveBy]", inhabitant.toString())
         when(inhabitant) {
             null -> ai!!.onEnter(x!! + mx, y!! + my, world.tile(x!! + mx, y!! + my))
             else -> attack(inhabitant)

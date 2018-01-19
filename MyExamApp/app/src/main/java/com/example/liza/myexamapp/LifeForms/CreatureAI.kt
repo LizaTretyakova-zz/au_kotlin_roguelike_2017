@@ -1,5 +1,6 @@
 package com.example.liza.myexamapp.LifeForms
 
+import android.util.Log
 import com.example.liza.myexamapp.World.Tile
 
 open class CreatureAI(protected var creature: Creature) {
@@ -24,8 +25,8 @@ open class CreatureAI(protected var creature: Creature) {
         }
     }
 
-    fun canDig(tile: Tile): Boolean { return false }
-    fun onDig(tile: Tile) {}
+    open fun canDig(tile: Tile): Boolean { return false }
+    open fun onDig(tile: Tile) {}
     fun onAttacked() {}
     fun onDeath() {}
     open fun onUpdate() {}

@@ -1,5 +1,6 @@
 package com.example.liza.myexamapp.World
 
+import android.util.Log
 import com.example.liza.myexamapp.LifeForms.Creature
 import com.example.liza.myexamapp.Screens.PlayScreen.Companion.SCREEN_HEIGHT
 import com.example.liza.myexamapp.Screens.PlayScreen.Companion.SCREEN_WIDTH
@@ -43,7 +44,16 @@ class World(private val tiles: Array<Array<Tile>>) {
     }
 
     fun creature(x: Int, y: Int): Creature? {
-        return creatures.find { it.x == x && it.y == y }
+        Log.e("World", "x=" + x.toString() + " y=" + y.toString())
+        for (c in creatures) {
+            Log.e("World", "creature at x=" + c.x.toString() + " y=" + c.y.toString())
+            if (c.x == x && c.y == y) {
+                return c
+            }
+        }
+        return null
+//        return creatures.find { it.x == x && it.y == y }
+//        return creatures.firstOrNull { it.x == x && it.y == y }
     }
 
     fun addAtEmptyLocation(creature: Creature) {
@@ -61,6 +71,7 @@ class World(private val tiles: Array<Array<Tile>>) {
     }
 
     fun remove(creature: Creature) {
+        Log.e("[World]", creature.char.char.char.toString())
         creatures.remove(creature)
     }
 }
