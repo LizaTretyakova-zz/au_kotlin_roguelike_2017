@@ -1,5 +1,6 @@
 package com.example.liza.myexamapp
 
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -19,19 +20,14 @@ class MainActivity : AppCompatActivity(), AsciiPanelView.OnCharClickedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main)
         val panelView = findViewById(R.id.panelView) as AsciiPanelView
-//        panelView.writeChar('g', 2, 2, Color.RED, Color.YELLOW)
-//                .setCursorPosition(14, 15)
-//                .writeCharWithColor('p', Color.RED, Color.YELLOW)
-//                .writeString("We", 16, 17, Color.RED, Color.YELLOW)
-//                .writeCenter("Center TEXT String", 5, Color.YELLOW, Color.CYAN)
-//                .onCharClickedListener = this
         panelView.onCharClickedListener = this
 
-        if (savedInstanceState == null) {
+        if (!this::currentScreen.isInitialized) {
             currentScreen = StartScreen(panelView)
             currentScreen.displayOutput()
         }
@@ -39,6 +35,7 @@ class MainActivity : AppCompatActivity(), AsciiPanelView.OnCharClickedListener {
 
     override fun onCharClicked(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar) {
         currentScreen = currentScreen.respondToUserInput(x, y, char)
+        currentScreen.displayOutput()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
