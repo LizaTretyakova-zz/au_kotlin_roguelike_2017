@@ -3,7 +3,6 @@ package com.example.liza.myexamapp.Screens
 import com.prokkypew.asciipanelview.AsciiPanelView
 import com.example.liza.myexamapp.World.World
 import com.example.liza.myexamapp.World.WorldBuilder
-import android.util.Log
 import com.example.liza.myexamapp.LifeForms.Creature
 import com.example.liza.myexamapp.LifeForms.CreatureFactory
 
@@ -41,7 +40,7 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
         }
         world.creatures
                 .filter {it.x!! >= left && it.x!! < left + SCREEN_WIDTH && it.y!! >= top && it.y!! < top + SCREEN_HEIGHT}
-                .map { panel.writeChar(it.char.char, it.x!! - left, it.y!! - top, it.char.charColor) }
+                .map { panel.writeChar(it.char.char.char, it.x!! - left, it.y!! - top, it.char.char.charColor) }
     }
 
     private fun createLifeForms(creatureFactory: CreatureFactory) {
@@ -65,7 +64,7 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
 
         displayTiles(left, top)
         if(player.x!! >= left && player.x!! < left + SCREEN_WIDTH && player.y!! >= top && player.y!! < top + SCREEN_HEIGHT) {
-            panel.writeChar(player.char.char, player.x!! - left, player.y!! - top, player.char.charColor);
+            panel.writeChar(player.char.char.char, player.x!! - left, player.y!! - top, player.char.char.charColor);
         }
     }
 
