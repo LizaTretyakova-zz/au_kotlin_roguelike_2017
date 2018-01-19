@@ -56,6 +56,8 @@ class World(private val tiles: Array<Array<Tile>>) {
 //        return creatures.firstOrNull { it.x == x && it.y == y }
     }
 
+    private fun findPlace
+
     fun addAtEmptyLocation(creature: Creature) {
         var x: Int
         var y: Int

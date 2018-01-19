@@ -11,15 +11,7 @@ enum class Tile(var char: AsciiPanelView.ColoredChar, val force: Int, val sharpn
     JEDI(AsciiPanelView.ColoredChar('@', Color.WHITE, AsciiPanelView.DEFAULT_BG_COLOR), 0, 0),
     TROOPER(AsciiPanelView.ColoredChar('T', Color.WHITE, AsciiPanelView.DEFAULT_BG_COLOR), 0, 0);
 
-    fun isDiggable(): Boolean {
-        return this == WALL
-    }
-
-    fun isGround(): Boolean {
-        return this == FLOOR || this == MIDI_CHLORIAN
-    }
-
-    fun isInteractive(): Boolean {
-        return this == MIDI_CHLORIAN
-    }
+    fun isDiggable(): Boolean = this == WALL
+    fun isGround(): Boolean = this == FLOOR || this == MIDI_CHLORIAN
+    fun isInteractive(): Boolean = this == MIDI_CHLORIAN
 }

@@ -40,27 +40,16 @@ class Creature(
         ai?.onDeath()
     }
 
-    fun update() {
-        ai?.onUpdate()
-    }
-
-    fun attacked() {
-        ai?.onAttacked()
-    }
+    fun update() = ai?.onUpdate()
+    fun attacked() = ai?.onAttacked()
+    fun isDead(): Boolean = force < 0
+    fun isWinner(): Boolean = kyberCrystals >= CRYSTALS_NUMBER
 
     fun modifyForce(delta: Int) {
         force += delta
         if (isDead()) {
             die()
         }
-    }
-
-    fun isDead(): Boolean {
-        return force < 0
-    }
-
-    fun isWinner(): Boolean {
-        return kyberCrystals >= CRYSTALS_NUMBER
     }
 
     fun moveBy(mx: Int, my: Int) {

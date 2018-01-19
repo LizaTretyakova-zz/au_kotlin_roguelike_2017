@@ -24,7 +24,6 @@ class StartScreen(panelView: AsciiPanelView) : Screen(panelView) {
         panel.writeCenter("-- press [here] to start --", 20, Color.WHITE)
     }
 
-    override fun respondToUserInput(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar): Screen {
-        return if (char.charColor == Color.WHITE) PlayScreen(panel) else this
-    }
+    override fun respondToUserInput(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar): Screen =
+        if (char.charColor == Color.WHITE) PlayScreen(panel) else this
 }

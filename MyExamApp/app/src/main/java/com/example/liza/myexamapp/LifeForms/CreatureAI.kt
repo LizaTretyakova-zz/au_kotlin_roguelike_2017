@@ -25,7 +25,7 @@ open class CreatureAI(protected var creature: Creature) {
         }
     }
 
-    open fun canDig(tile: Tile): Boolean { return false }
+    open fun canDig(tile: Tile): Boolean = false
     open fun onDig(tile: Tile) {}
     fun onAttacked() {}
     fun onDeath() {}

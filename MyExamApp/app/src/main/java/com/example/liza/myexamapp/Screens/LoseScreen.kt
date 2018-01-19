@@ -12,7 +12,6 @@ class LoseScreen(panelView: AsciiPanelView) : Screen(panelView) {
         panel.writeCenter("-- [restart] --", 10, Color.WHITE)
     }
 
-    override fun respondToUserInput(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar): Screen {
-        return if (char.charColor == Color.WHITE) PlayScreen(panel) else this
-    }
+    override fun respondToUserInput(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar): Screen =
+            if (char.charColor == Color.WHITE) PlayScreen(panel) else this
 }

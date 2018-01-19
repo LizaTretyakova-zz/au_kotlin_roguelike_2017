@@ -10,9 +10,8 @@ class WorldBuilder(private val width: Int = PlayScreen.SCREEN_WIDTH, private val
         tiles = Array(width) { Array(height) { Tile.FLOOR } }
     }
 
-    fun build(): World {
-        return World(tiles)
-    }
+    fun build(): World = World(tiles)
+    fun makeCaves(): WorldBuilder = randomizeTiles().smooth(8)
 
     private fun randomizeTiles(): WorldBuilder {
         for (x in 0 until width) {
@@ -50,9 +49,5 @@ class WorldBuilder(private val width: Int = PlayScreen.SCREEN_WIDTH, private val
             tiles = tiles2
         }
         return this
-    }
-
-    fun makeCaves(): WorldBuilder {
-        return randomizeTiles().smooth(8)
     }
 }

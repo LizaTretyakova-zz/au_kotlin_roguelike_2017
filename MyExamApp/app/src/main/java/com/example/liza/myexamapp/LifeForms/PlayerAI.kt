@@ -12,11 +12,6 @@ class PlayerAI(creature: Creature) : CreatureAI(creature) {
         this.creature.y = enemy.y
     }
 
-    override fun canDig(tile: Tile): Boolean {
-        return creature.force - tile.sharpness > 0
-    }
-
-    override fun onDig(tile: Tile) {
-        this.creature.modifyForce(-tile.sharpness)
-    }
+    override fun canDig(tile: Tile): Boolean = creature.force - tile.sharpness > 0
+    override fun onDig(tile: Tile) = this.creature.modifyForce(-tile.sharpness)
 }
