@@ -19,19 +19,17 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
     }
 
     private var world: World
-    private var centerX: Int = 0
-    private var centerY: Int = 0
     private var player: Creature
 
     private fun createWorld() {
     }
 
     fun getScrollX(): Int {
-        return Math.max(0, Math.min(centerX - SCREEN_WIDTH / 2, world.width() - SCREEN_WIDTH))
+        return Math.max(0, Math.min(player.x!! - SCREEN_WIDTH / 2, world.width() - SCREEN_WIDTH))
     }
 
     fun getScrollY(): Int {
-        return Math.max(0, Math.min(centerY - SCREEN_HEIGHT / 2, world.height() - SCREEN_HEIGHT))
+        return Math.max(0, Math.min(player.y!! - SCREEN_HEIGHT / 2, world.height() - SCREEN_HEIGHT))
     }
 
     private fun displayTiles(left: Int, top: Int) {
@@ -44,19 +42,6 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
                 panel.writeChar(world.glyph(wx, wy), x, y, world.color(wx, wy))
             }
         }
-    }
-
-    private fun scrollBy(mx: Int, my: Int) {
-        Log.w("ScrollBy", "centerX  + mx = " + (centerX + mx).toString())
-        Log.w("ScrollBy", "world!!.width() - 1 = " + (world.width() - 1).toString())
-        Log.w("ScrollBy", "centerY  + my = " + (centerY + my).toString())
-        Log.w("ScrollBy", "world!!.height() - 1 = " + (world.height() - 1).toString())
-
-        centerX = Math.max(0, Math.min(centerX + mx, world.width() - 1))
-        centerY = Math.max(0, Math.min(centerY + my, world.height() - 1))
-
-        Log.w("ScrollBy", "updated centerX = " + centerX.toString())
-        Log.w("ScrollBy", "updated centerY = " + centerY.toString())
     }
 
     init {
@@ -92,14 +77,11 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
         Log.w("PlayScreen", "down = " + down.toString())
 
         when (dest) {
-            right -> scrollBy(1, 0)
-            left -> scrollBy(-1, 0)
-            up -> scrollBy(0, 1)
-            down -> scrollBy(0, -1)
+            right -> player.moveBy(1, 0)
+            left -> player.moveBy(-1, 0)
+            up -> player.moveBy(0, 1)
+            down -> player.moveBy(0, -1)
         }
-
-        Log.w("PlayScreen", "updated centerX = " + centerX.toString())
-        Log.w("PlayScreen", "updated centerY = " + centerY.toString())
 
         displayOutput()
         return this
