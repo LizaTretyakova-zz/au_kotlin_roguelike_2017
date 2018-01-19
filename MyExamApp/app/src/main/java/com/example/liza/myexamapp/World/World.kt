@@ -56,9 +56,7 @@ class World(private val tiles: Array<Array<Tile>>) {
 //        return creatures.firstOrNull { it.x == x && it.y == y }
     }
 
-    private fun findPlace
-
-    fun addAtEmptyLocation(creature: Creature) {
+    private fun findPlace(): Pair<Int, Int> {
         var x: Int
         var y: Int
 
@@ -67,13 +65,21 @@ class World(private val tiles: Array<Array<Tile>>) {
             y = (Math.random() * SCREEN_HEIGHT).toInt()
         } while (!tile(x, y).isGround())
 
-        creature.x = x
-        creature.y = y
+        return Pair(x, y)
+    }
+
+    fun addCreatureAtEmptyLocation(creature: Creature) {
+        val place = findPlace()
+
+        creature.x = place.first
+        creature.y = place.second
         creatures.add(creature);
     }
 
-    fun remove(creature: Creature) {
-        Log.e("[World]", creature.char.char.char.toString())
-        creatures.remove(creature)
+    fun addMidiChlorian() {
+        val place = findPlace()
+        tiles[place.first][place.second] = Tile.MIDI_CHLORIAN
     }
+
+    fun remove(creature: Creature) = creatures.remove(creature)
 }

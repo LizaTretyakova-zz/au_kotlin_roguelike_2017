@@ -45,7 +45,10 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
 
     private fun createLifeForms(creatureFactory: CreatureFactory) {
         for (i in 0..7) {
+            // one healing midi-chlorian per trooper
+            // but you'd better avoid these guys anyway ;)
             creatureFactory.newTrooper()
+            world.addMidiChlorian()
         }
     }
 
