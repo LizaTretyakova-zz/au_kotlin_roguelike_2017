@@ -1,12 +1,13 @@
 package com.example.liza.myexamapp.Screens
 
-import android.graphics.Color
 import com.prokkypew.asciipanelview.AsciiPanelView
 import com.example.liza.myexamapp.World.World
 import com.example.liza.myexamapp.World.WorldBuilder
-import android.R.attr.centerY
-import android.R.attr.centerX
 import android.util.Log
+import com.example.liza.myexamapp.LifeForms.Creature
+import com.example.liza.myexamapp.LifeForms.CreatureFactory
+
+
 
 
 class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
@@ -17,22 +18,20 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
         internal val WORLD_HEIGHT = 32
     }
 
-    private var world: World? = null
+    private var world: World
     private var centerX: Int = 0
     private var centerY: Int = 0
+    private var player: Creature
 
     private fun createWorld() {
-        world = WorldBuilder(WORLD_WIDTH, WORLD_HEIGHT)
-                .makeCaves()
-                .build()
     }
 
     fun getScrollX(): Int {
-        return Math.max(0, Math.min(centerX - SCREEN_WIDTH / 2, world!!.width() - SCREEN_WIDTH))
+        return Math.max(0, Math.min(centerX - SCREEN_WIDTH / 2, world.width() - SCREEN_WIDTH))
     }
 
     fun getScrollY(): Int {
-        return Math.max(0, Math.min(centerY - SCREEN_HEIGHT / 2, world!!.height() - SCREEN_HEIGHT))
+        return Math.max(0, Math.min(centerY - SCREEN_HEIGHT / 2, world.height() - SCREEN_HEIGHT))
     }
 
     private fun displayTiles(left: Int, top: Int) {
@@ -42,26 +41,30 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
                 val wx = x + left
                 val wy = y + top
 
-                panel.writeChar(world!!.glyph(wx, wy), x, y, world!!.color(wx, wy))
+                panel.writeChar(world.glyph(wx, wy), x, y, world.color(wx, wy))
             }
         }
     }
 
     private fun scrollBy(mx: Int, my: Int) {
         Log.w("ScrollBy", "centerX  + mx = " + (centerX + mx).toString())
-        Log.w("ScrollBy", "world!!.width() - 1 = " + (world!!.width() - 1).toString())
+        Log.w("ScrollBy", "world!!.width() - 1 = " + (world.width() - 1).toString())
         Log.w("ScrollBy", "centerY  + my = " + (centerY + my).toString())
-        Log.w("ScrollBy", "world!!.height() - 1 = " + (world!!.height() - 1).toString())
+        Log.w("ScrollBy", "world!!.height() - 1 = " + (world.height() - 1).toString())
 
-        centerX = Math.max(0, Math.min(centerX + mx, world!!.width() - 1))
-        centerY = Math.max(0, Math.min(centerY + my, world!!.height() - 1))
+        centerX = Math.max(0, Math.min(centerX + mx, world.width() - 1))
+        centerY = Math.max(0, Math.min(centerY + my, world.height() - 1))
 
         Log.w("ScrollBy", "updated centerX = " + centerX.toString())
         Log.w("ScrollBy", "updated centerY = " + centerY.toString())
     }
 
     init {
-        createWorld()
+        world = WorldBuilder(WORLD_WIDTH, WORLD_HEIGHT)
+                .makeCaves()
+                .build()
+        val creatureFactory = CreatureFactory(world)
+        player = creatureFactory.newPlayer()
     }
 
     override fun displayOutput() {
@@ -69,6 +72,9 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
         val top = getScrollY()
 
         displayTiles(left, top)
+        if(player.x!! >= left && player.x!! < left + SCREEN_WIDTH && player.y!! >= top && player.y!! < top + SCREEN_HEIGHT) {
+            panel.writeChar(player.char.char, player.x!! - left, player.y!! - top, player.char.charColor);
+        }
     }
 
     override fun respondToUserInput(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar): Screen {
