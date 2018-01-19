@@ -9,11 +9,12 @@ import com.prokkypew.asciipanelview.AsciiPanelView
 //    return ApplicationMain.context.getString(stringId)
 //}
 
-val WALL = AsciiPanelView.ColoredChar(219.toChar(), Color.CYAN, Color.LTGRAY)
+val WALL = AsciiPanelView.ColoredChar(250.toChar(), Color.CYAN, Color.CYAN)
 val FLOOR = AsciiPanelView.ColoredChar('.', Color.WHITE, AsciiPanelView.DEFAULT_BG_COLOR)
 val BOUNDS = AsciiPanelView.ColoredChar('x', AsciiPanelView.DEFAULT_CHAR_COLOR, AsciiPanelView.DEFAULT_BG_COLOR)
 val MIDI_CHLORIAN = AsciiPanelView.ColoredChar(7.toChar(), Color.WHITE, AsciiPanelView.DEFAULT_BG_COLOR)
-val JEDI = AsciiPanelView.ColoredChar('J', Color.WHITE, AsciiPanelView.DEFAULT_BG_COLOR)
+val JEDI = AsciiPanelView.ColoredChar('@', Color.WHITE, AsciiPanelView.DEFAULT_BG_COLOR)
+val TROOPER = AsciiPanelView.ColoredChar('T', Color.WHITE, AsciiPanelView.DEFAULT_BG_COLOR)
 
 fun isDiggable(tile: AsciiPanelView.ColoredChar): Boolean {
     return tile == WALL

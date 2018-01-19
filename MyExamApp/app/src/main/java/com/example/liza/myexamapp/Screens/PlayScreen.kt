@@ -21,15 +21,12 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
     private var world: World
     private var player: Creature
 
-    private fun createWorld() {
-    }
-
     fun getScrollX(): Int {
-        return Math.max(0, Math.min(player.x!! - SCREEN_WIDTH / 2, world.width() - SCREEN_WIDTH))
+        return Math.max(0, Math.min(player.x!! - SCREEN_WIDTH / 2, world.width - SCREEN_WIDTH))
     }
 
     fun getScrollY(): Int {
-        return Math.max(0, Math.min(player.y!! - SCREEN_HEIGHT / 2, world.height() - SCREEN_HEIGHT))
+        return Math.max(0, Math.min(player.y!! - SCREEN_HEIGHT / 2, world.height - SCREEN_HEIGHT))
     }
 
     private fun displayTiles(left: Int, top: Int) {
@@ -42,6 +39,15 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
                 panel.writeChar(world.glyph(wx, wy), x, y, world.color(wx, wy))
             }
         }
+        world.creatures
+                .filter {it.x!! >= left && it.x!! < left + SCREEN_WIDTH && it.y!! >= top && it.y!! < top + SCREEN_HEIGHT}
+                .map { panel.writeChar(it.char.char, it.x!! - left, it.y!! - top, it.char.charColor) }
+    }
+
+    private fun createLifeForms(creatureFactory: CreatureFactory) {
+        for (i in 0..7) {
+            creatureFactory.newTrooper()
+        }
     }
 
     init {
@@ -50,6 +56,7 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
                 .build()
         val creatureFactory = CreatureFactory(world)
         player = creatureFactory.newPlayer()
+        createLifeForms(creatureFactory)
     }
 
     override fun displayOutput() {
@@ -68,13 +75,6 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
         val up = SCREEN_HEIGHT - y!!
         val down = y!!
         val dest = Math.min(Math.min(right, left), Math.min(up, down))
-
-        Log.w("PlayScreen", "x = " + x!!.toString())
-        Log.w("PlayScreen", "y = " + y!!.toString())
-        Log.w("PlayScreen", "right = " + right.toString())
-        Log.w("PlayScreen", "left = " + left.toString())
-        Log.w("PlayScreen", "up = " + up.toString())
-        Log.w("PlayScreen", "down = " + down.toString())
 
         when (dest) {
             right -> player.moveBy(1, 0)
