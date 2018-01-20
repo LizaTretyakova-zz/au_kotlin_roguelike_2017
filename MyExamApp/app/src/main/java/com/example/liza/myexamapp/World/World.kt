@@ -1,6 +1,5 @@
 package com.example.liza.myexamapp.World
 
-import android.util.Log
 import com.example.liza.myexamapp.Items.Item
 import com.example.liza.myexamapp.LifeForms.Creature
 import com.example.liza.myexamapp.Screens.PlayScreen.Companion.SCREEN_HEIGHT
@@ -27,14 +26,6 @@ class World(private val tiles: Array<Array<Tile>>) {
         return tile(x, y).char.charColor
     }
 
-    fun dig(x: Int, y: Int): Boolean {
-        if (tile(x, y).isDiggable()) {
-            tiles[x][y] = Tile.FLOOR
-            return true
-        }
-        return false
-    }
-
     fun ground(x: Int, y: Int) {
         if(tile(x, y) != Tile.BOUNDS) {
             tiles[x][y] = Tile.FLOOR
@@ -44,15 +35,8 @@ class World(private val tiles: Array<Array<Tile>>) {
     fun creature(x: Int, y: Int): Creature? =
             creatures.find { it.x == x && it.y == y }
 
-    fun item(x: Int, y: Int): Item? {
-//        items.find { it.x == x && it.y == y }
-        Log.e("World::item -- x, y:", "(" + x.toString() + ", " + y.toString() + ")")
-        for (item in items) {
-            Log.e("World::item", "(" + item.x.toString() + ", " + item.y.toString() + ")")
-            if(item.x == x && item.y == y) return item
-        }
-        return null
-    }
+    fun item(x: Int, y: Int): Item? =
+            items.find { it.x == x && it.y == y }
 
     private fun findPlace(): Pair<Int, Int> {
         var x: Int

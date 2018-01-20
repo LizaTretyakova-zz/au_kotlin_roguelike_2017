@@ -1,9 +1,6 @@
 package com.example.liza.myexamapp.Screens
 
 import android.graphics.Color
-import android.os.Bundle
-import android.view.KeyEvent
-import com.example.liza.myexamapp.R
 import com.prokkypew.asciipanelview.AsciiPanelView
 
 

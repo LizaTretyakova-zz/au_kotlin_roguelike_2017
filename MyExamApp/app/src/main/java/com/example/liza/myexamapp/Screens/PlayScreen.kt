@@ -8,25 +8,22 @@ import com.example.liza.myexamapp.World.WorldBuilder
 import com.example.liza.myexamapp.LifeForms.Creature
 import com.example.liza.myexamapp.LifeForms.CreatureFactory
 
-
-
-
 class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
     companion object {
-        internal val SCREEN_WIDTH = 48
-        internal val SCREEN_HEIGHT = 26
-        internal val WORLD_WIDTH = 90
-        internal val WORLD_HEIGHT = 32
+        internal const val SCREEN_WIDTH = 48
+        internal const val SCREEN_HEIGHT = 26
+        internal const val WORLD_WIDTH = 90
+        internal const val WORLD_HEIGHT = 32
     }
 
     private var world: World
     private var player: Creature
 
-    fun getScrollX(): Int {
+    private fun getScrollX(): Int {
         return Math.max(0, Math.min(player.x!! - SCREEN_WIDTH / 2, world.width - SCREEN_WIDTH))
     }
 
-    fun getScrollY(): Int {
+    private fun getScrollY(): Int {
         return Math.max(0, Math.min(player.y!! - SCREEN_HEIGHT / 2, world.height - SCREEN_HEIGHT))
     }
 

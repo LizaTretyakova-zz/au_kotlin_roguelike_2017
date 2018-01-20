@@ -12,7 +12,6 @@ class Creature(
         val power: Int) {
 
     companion object {
-        const val CRYSTALS_NUMBER = 4
         const val JEDI_FORCE = 10
         const val JEDI_POWER = 10
         const val TROOPER_FORCE = 0
@@ -22,14 +21,6 @@ class Creature(
     var ai: CreatureAI? = null
     var x: Int? = null
     var y: Int? = null
-    private var kyberCrystals: Int = 0
-
-    fun dig(wx: Int, wy: Int) {
-        if(world.dig(wx, wy)) {
-            x = wx
-            y = wy
-        }
-    }
 
     fun attack(creature: Creature) {
         ai?.onAttack(creature)

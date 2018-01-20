@@ -1,6 +1,5 @@
 package com.example.liza.myexamapp.LifeForms
 
-import android.util.Log
 import com.example.liza.myexamapp.Items.Item
 import com.example.liza.myexamapp.World.Tile
 
