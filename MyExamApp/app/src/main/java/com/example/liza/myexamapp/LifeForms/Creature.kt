@@ -1,6 +1,7 @@
 package com.example.liza.myexamapp.LifeForms
 
 import android.util.Log
+import com.example.liza.myexamapp.Items.Item
 import com.example.liza.myexamapp.World.World
 import com.example.liza.myexamapp.World.Tile
 
@@ -35,15 +36,19 @@ class Creature(
         creature.attacked()
     }
 
+    fun pick(item: Item) {
+        ai?.onPick(item)
+    }
+
     fun die() {
-        world.remove(this)
+        world.removeCreature(this)
         ai?.onDeath()
     }
 
     fun update() = ai?.onUpdate()
     fun attacked() = ai?.onAttacked()
     fun isDead(): Boolean = force < 0
-    fun isWinner(): Boolean = kyberCrystals >= CRYSTALS_NUMBER
+    fun isWinner(): Boolean = ai!!.isWinner()
 
     fun modifyForce(delta: Int) {
         force += delta
@@ -57,9 +62,11 @@ class Creature(
         if(world.tile(x!! + mx, y!! + my) == Tile.BOUNDS) return
 
         val inhabitant = world.creature(x!! + mx, y!! + my)
-        when(inhabitant) {
-            null -> ai!!.onEnter(x!! + mx, y!! + my, world.tile(x!! + mx, y!! + my))
-            else -> attack(inhabitant)
+        val crystal = world.item(x!! + mx, y!! + my)
+        when {
+            inhabitant != null -> attack(inhabitant)
+            crystal != null -> pick(crystal)
+            else -> ai!!.onEnter(x!! + mx, y!! + my, world.tile(x!! + mx, y!! + my))
         }
     }
 

@@ -1,18 +1,16 @@
 package com.example.liza.myexamapp.World
 
 import android.util.Log
+import com.example.liza.myexamapp.Items.Item
 import com.example.liza.myexamapp.LifeForms.Creature
 import com.example.liza.myexamapp.Screens.PlayScreen.Companion.SCREEN_HEIGHT
 import com.example.liza.myexamapp.Screens.PlayScreen.Companion.SCREEN_WIDTH
-
-
-
-
 
 class World(private val tiles: Array<Array<Tile>>) {
     val width: Int = tiles.size
     val height: Int = tiles[0].size
     val creatures: MutableList<Creature> = listOf<Creature>().toMutableList()
+    val items: MutableList<Item> = listOf<Item>().toMutableList()
 
     fun tile(x: Int, y: Int): Tile {
         return if (x < 0 || x >= width || y < 0 || y >= height)
@@ -43,8 +41,17 @@ class World(private val tiles: Array<Array<Tile>>) {
         }
     }
 
-    fun creature(x: Int, y: Int): Creature? {
-        return creatures.find { it.x == x && it.y == y }
+    fun creature(x: Int, y: Int): Creature? =
+            creatures.find { it.x == x && it.y == y }
+
+    fun item(x: Int, y: Int): Item? {
+//        items.find { it.x == x && it.y == y }
+        Log.e("World::item -- x, y:", "(" + x.toString() + ", " + y.toString() + ")")
+        for (item in items) {
+            Log.e("World::item", "(" + item.x.toString() + ", " + item.y.toString() + ")")
+            if(item.x == x && item.y == y) return item
+        }
+        return null
     }
 
     private fun findPlace(): Pair<Int, Int> {
@@ -67,6 +74,14 @@ class World(private val tiles: Array<Array<Tile>>) {
         creatures.add(creature);
     }
 
+    fun addItemAtEmptyLocation(item: Item) {
+        val place = findPlace()
+
+        item.x = place.first
+        item.y = place.second
+        items.add(item);
+    }
+
     fun addMidiChlorian() {
         val place = findPlace()
         tiles[place.first][place.second] = Tile.MIDI_CHLORIAN
@@ -74,5 +89,6 @@ class World(private val tiles: Array<Array<Tile>>) {
 
     fun update() = creatures.map { it.update() }
 
-    fun remove(creature: Creature) = creatures.remove(creature)
+    fun removeCreature(creature: Creature) = creatures.remove(creature)
+    fun removeItem(item: Item) = items.remove(item)
 }

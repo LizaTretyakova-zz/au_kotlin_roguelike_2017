@@ -1,5 +1,7 @@
 package com.example.liza.myexamapp.LifeForms
 
+import android.util.Log
+import com.example.liza.myexamapp.Items.Item
 import com.example.liza.myexamapp.World.Tile
 
 open class CreatureAI(protected var creature: Creature) {
@@ -32,4 +34,6 @@ open class CreatureAI(protected var creature: Creature) {
     fun onDeath() {}
     open fun onUpdate() {}
     open fun onAttack(enemy: Creature) {}
+    open fun onPick(item: Item) {}
+    open fun isWinner(): Boolean = false
 }

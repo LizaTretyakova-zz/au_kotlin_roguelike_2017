@@ -1,6 +1,7 @@
 package com.example.liza.myexamapp.Screens
 
 import android.graphics.Color
+import com.example.liza.myexamapp.Items.ItemFactory
 import com.prokkypew.asciipanelview.AsciiPanelView
 import com.example.liza.myexamapp.World.World
 import com.example.liza.myexamapp.World.WorldBuilder
@@ -42,6 +43,9 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
         world.creatures
                 .filter {it.x!! >= left && it.x!! < left + SCREEN_WIDTH && it.y!! >= top && it.y!! < top + SCREEN_HEIGHT}
                 .map { panel.writeChar(it.char.char.char, it.x!! - left, it.y!! - top, it.char.char.charColor) }
+        world.items
+                .filter {it.x!! >= left && it.x!! < left + SCREEN_WIDTH && it.y!! >= top && it.y!! < top + SCREEN_HEIGHT}
+                .map { panel.writeChar(it.char.char, it.x!! - left, it.y!! - top, it.char.charColor) }
     }
 
     private fun displayStats() {
@@ -59,13 +63,23 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
         }
     }
 
+    private fun bringCrystals(itemFactory: ItemFactory) {
+        itemFactory.newKyberCrystalRed()
+        itemFactory.newKyberCrystalYellow()
+        itemFactory.newKyberCrystalGreen()
+        itemFactory.newKyberCrystalBlue()
+    }
+
     init {
         world = WorldBuilder(WORLD_WIDTH, WORLD_HEIGHT)
                 .makeCaves()
                 .build()
         val creatureFactory = CreatureFactory(world)
+        val itemFactory = ItemFactory(world)
+
         player = creatureFactory.newPlayer()
         createLifeForms(creatureFactory)
+        bringCrystals(itemFactory)
     }
 
     override fun displayOutput() {

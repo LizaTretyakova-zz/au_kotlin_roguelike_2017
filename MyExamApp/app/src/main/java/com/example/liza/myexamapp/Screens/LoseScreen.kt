@@ -8,11 +8,11 @@ class LoseScreen(panelView: AsciiPanelView) : Screen(panelView) {
 
     override fun displayOutput() {
         panel.clear()
-        panel.writeString("You've lost, young padawan.", 1, 2, Color.YELLOW)
-        panel.writeString("But remember, that patience", 1, 3, Color.YELLOW)
-        panel.writeString("is the truly Jedi way,", 1, 4, Color.YELLOW)
-        panel.writeString("so let the Force guide you,", 1, 5, Color.YELLOW)
-        panel.writeString("and try again.", 1, 6, Color.YELLOW)
+        panel.writeCenter("You've lost, young padawan.", 1, 2, Color.YELLOW)
+        panel.writeCenter("But remember, that patience", 1, 3, Color.YELLOW)
+        panel.writeCenter("is the truly Jedi way,", 1, 4, Color.YELLOW)
+        panel.writeCenter("so let the Force guide you,", 1, 5, Color.YELLOW)
+        panel.writeCenter("and try again.", 1, 6, Color.YELLOW)
         panel.writeCenter("-- [restart] --", 22)
     }
 
