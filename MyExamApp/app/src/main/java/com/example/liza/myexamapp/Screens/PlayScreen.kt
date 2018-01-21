@@ -1,14 +1,24 @@
 package com.example.liza.myexamapp.Screens
 
+import android.app.Activity;
+import android.content.ContextWrapper
 import android.graphics.Color
+import android.view.Gravity
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.TextView
 import com.example.liza.myexamapp.Items.ItemFactory
 import com.prokkypew.asciipanelview.AsciiPanelView
 import com.example.liza.myexamapp.World.World
 import com.example.liza.myexamapp.World.WorldBuilder
 import com.example.liza.myexamapp.LifeForms.Creature
 import com.example.liza.myexamapp.LifeForms.CreatureFactory
+import com.example.liza.myexamapp.R
 
-class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
+class PlayScreen(panelView: AsciiPanelView, contextWrapper: ContextWrapper) : Screen(panelView, contextWrapper) {
     companion object {
         internal const val SCREEN_WIDTH = 48
         internal const val SCREEN_HEIGHT = 26
@@ -106,9 +116,29 @@ class PlayScreen(panelView: AsciiPanelView) : Screen(panelView) {
 
         world.update()
 
-        when {
-            player.isDead() -> return LoseScreen(panel)
-            player.isWinner() -> return WinScreen(panel)
+//        when {
+//            player.isDead() -> return LoseScreen(panel)
+//            player.isWinner() -> return WinScreen(panel)
+//        }
+
+        if(player.isWinner() || player.isDead()) {
+            val layoutInflater = contextWrapper.getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val popupView = layoutInflater.inflate(R.layout.popup, null)
+            val popupWindow = PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+
+            val btnDismiss = popupView.findViewById(R.id.dismiss) as Button
+            btnDismiss.setOnClickListener { popupWindow.dismiss() }
+
+            val popupText = popupView.findViewById(R.id.text) as TextView
+            popupText.text  =
+                    if(player.isDead())
+                        contextWrapper.getResources().getString(R.string.lose_text)
+                    else
+                        contextWrapper.getResources().getString(R.string.win_text)
+
+            popupWindow.showAtLocation(panel, Gravity.CENTER, 0, 0)
+            popupWindow.update(0, 0, popupWindow.getWidth(), popupWindow.getHeight());
+            return PlayScreen(panel, contextWrapper)
         }
 
         displayOutput()

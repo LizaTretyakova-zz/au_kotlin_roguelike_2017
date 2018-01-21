@@ -11,8 +11,8 @@
 
     <com.prokkypew.asciipanelview.AsciiPanelView
             android:id="@+id/panelView"
-            android:layout_width="576dp"
-            android:layout_height="312dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:panelWidth="48"
             app:panelHeight="27"
             app:defaultCharColor="#ffffff"
@@ -25,4 +25,6 @@
             app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintVertical_bias="0.495"/>
 
+    <!--android:layout_width="576dp"-->
+    <!--android:layout_height="312dp"-->
 </android.support.constraint.ConstraintLayout>

@@ -1,10 +1,11 @@
 package com.example.liza.myexamapp.Screens
 
+import android.content.ContextWrapper
 import android.graphics.Color
 import com.prokkypew.asciipanelview.AsciiPanelView
 
 
-class WinScreen(panelView: AsciiPanelView) : Screen(panelView) {
+class WinScreen(panelView: AsciiPanelView, contextWrapper: ContextWrapper) : Screen(panelView, contextWrapper) {
 
     override fun displayOutput() {
         panel.clear()
@@ -17,5 +18,5 @@ class WinScreen(panelView: AsciiPanelView) : Screen(panelView) {
     }
 
     override fun respondToUserInput(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar): Screen =
-        if (char.charColor == Color.WHITE) PlayScreen(panel) else this
+        if (char.charColor == Color.WHITE) PlayScreen(panel, contextWrapper) else this
 }

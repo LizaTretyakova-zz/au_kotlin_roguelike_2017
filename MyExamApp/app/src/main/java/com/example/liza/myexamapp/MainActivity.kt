@@ -1,10 +1,9 @@
 package com.example.liza.myexamapp
 
+import android.content.ContextWrapper
 import android.content.pm.ActivityInfo
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.Window
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity(), AsciiPanelView.OnCharClickedListener {
         panelView.onCharClickedListener = this
 
         if (!this::currentScreen.isInitialized) {
-            currentScreen = StartScreen(panelView)
+            currentScreen = StartScreen(panelView, ContextWrapper(baseContext))
             currentScreen.displayOutput()
         }
     }
