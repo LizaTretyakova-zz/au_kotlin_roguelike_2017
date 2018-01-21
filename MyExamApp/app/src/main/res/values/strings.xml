@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">My ExamApp</string>
     <string name="action_settings">Settings</string>
+    <string name="yes_my_master">Yes, My Master</string>
+    <string name="lose_text">
+        You\'ve lost, young padawan.
+        But remember, that patience
+        is the truly Jedi way,
+        so let the Force guide you,
+        and try again.
+    </string>
+    <string name="win_text">
+        Today you won, my young apprentice.
+        But be mindful, and beware of
+        pride, arrogance, and Disney
+        Studios making a new SW movie
+        every year.
+    </string>
 </resources>

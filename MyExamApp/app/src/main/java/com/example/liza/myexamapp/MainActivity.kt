@@ -1,37 +1,40 @@
 package com.example.liza.myexamapp
 
-import android.graphics.Color
+import android.content.ContextWrapper
+import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.util.Log
-import android.view.View
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
+import android.view.WindowManager
+
+import com.example.liza.myexamapp.Screens.Screen
+import com.example.liza.myexamapp.Screens.StartScreen
 
 import com.prokkypew.asciipanelview.AsciiPanelView
 
 class MainActivity : AppCompatActivity(), AsciiPanelView.OnCharClickedListener {
+    private lateinit var currentScreen: Screen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main)
         val panelView = findViewById(R.id.panelView) as AsciiPanelView
-        panelView.writeChar('g', 2, 2, Color.RED, Color.YELLOW)
-                .setCursorPosition(14, 15)
-                .writeCharWithColor('p', Color.RED, Color.YELLOW)
-                .writeString("We", 16, 17, Color.RED, Color.YELLOW)
-                .writeCenter("Center TEXT String", 5, Color.YELLOW, Color.CYAN)
-                .onCharClickedListener = this
+        panelView.onCharClickedListener = this
+
+        if (!this::currentScreen.isInitialized) {
+            currentScreen = StartScreen(panelView, ContextWrapper(baseContext))
+            currentScreen.displayOutput()
+        }
     }
 
     override fun onCharClicked(x: Int?, y: Int?, char: AsciiPanelView.ColoredChar) {
-        Log.d("char", "char clicked:" + x + ":" + y + " = " + char.char)
-        val panelView = findViewById(R.id.panelView) as AsciiPanelView
-        panelView.clearRect(' ', 0, 1, panelView.panelWidth, 1)
-                .writeCenter("x:" + x + " y:" + y + " char:" + char.char, 1)
+        currentScreen = currentScreen.respondToUserInput(x, y, char)
+        currentScreen.displayOutput()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
